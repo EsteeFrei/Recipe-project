@@ -7,6 +7,7 @@ const IRecSchema: Schema<IRecipe> = new Schema({
     image:  {type:String,required:true},         
     instructions:  {type:String,required:true},         
     ingredients:  {type:[String],default:[],required:true},
+    like:{type:Boolean,default:false}
 
 })
 
