@@ -2,11 +2,11 @@ import { connectToDB, disconnectFromDB } from "@/app/DB/connection/conDB";
 import Recipe from "@/app/DB/models/recipeModel";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest,{ params }: { params: { id: string } }) {
+export async function DELETE(req: NextRequest,{ params }: { params: { id: string } }) {
     try {
         await connectToDB();
         const id =params.id;
-        const recipe = await Recipe.findById(id);
+        const recipe = await Recipe.findByIdAndDelete(id);
         console.log("recipe in server", recipe); 
 
         await disconnectFromDB();

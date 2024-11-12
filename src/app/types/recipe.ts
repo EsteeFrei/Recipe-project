@@ -15,5 +15,7 @@ export  interface IRecipe extends Document {
     image: string;                
     instructions: string;         
     ingredients: string[];
-    like: boolean
+    like:boolean;
+
+
 }
