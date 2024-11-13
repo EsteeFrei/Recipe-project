@@ -1,15 +1,17 @@
 'use client'
 import { getRecipes } from '@/app/actions/recipeActions';
-import Card from '@/app/components/Card';
+import Card from '@/app/components/card';
 import Navbar from '@/app/components/Navbar';
+//import { useReciprStore } from '@/app/store/recipeStore';
 import { IRecipe } from '@/app/types/recipe';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState} from 'react'
+
 
 
 const Page: React.FC = () => {
 
-    const [recipes, setRecipes] = useState<IRecipe[] | []>([])
-    
+    //const recipes = useReciprStore((state)=>state.recipes) 
+    const [recipes, setRecipes] = useState<IRecipe[]>([])
 
     const getrecipes = async () => {
         try {
@@ -30,12 +32,11 @@ const Page: React.FC = () => {
         console.log("Updated recipes:", recipes);
     }, [recipes]);
 
-    
+
     return (
         <>
-           <Navbar/> 
+            <Navbar />
 
-            {/* Recipes Grid */}
             <div>
                 <div className="container mx-auto p-4">
                     <h2 className="text-2xl font-bold mb-4">המתכונים שלנו</h2>
