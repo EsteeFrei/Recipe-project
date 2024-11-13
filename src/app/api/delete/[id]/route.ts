@@ -9,7 +9,6 @@ export async function DELETE(req: NextRequest,{ params }: { params: { id: string
         const recipe = await Recipe.findByIdAndDelete(id);
         console.log("recipe in server", recipe); 
 
-        await disconnectFromDB();
         
         if (!recipe) {
             return NextResponse.json({ status: 404, message: "No recipe found" }, { status: 404 });
@@ -21,4 +20,7 @@ export async function DELETE(req: NextRequest,{ params }: { params: { id: string
         console.error("Error retrieving recipes:", err); 
         return NextResponse.json({ status: 500, message: "Server error getting recipe", err });
     }
+    finally{
+        await disconnectFromDB();
+      }
 }

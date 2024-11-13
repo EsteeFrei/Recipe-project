@@ -9,7 +9,6 @@ export async function GET(req: NextRequest) {
         const recipes = await Recipe.find({});
         console.log("recipes in server", recipes); 
 
-        await disconnectFromDB();
         
         if (!recipes || recipes.length === 0) {
             return NextResponse.json({ status: 404, message: "No recipes found" }, { status: 404 });
@@ -21,4 +20,7 @@ export async function GET(req: NextRequest) {
         console.error("Error retrieving recipes:", err); 
         return NextResponse.json({ status: 500, message: "Server error getting recipes", err });
     }
+    finally{
+        await disconnectFromDB();
+      }
 }

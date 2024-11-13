@@ -36,7 +36,7 @@ export const getRecipes = async (): Promise<IRecipe[] | []> => {
 };
 
 // GET recipe by ID
-export const getRecipeByName = async (id: string): Promise<IRecipe | null> => {
+export const getRecipeById = async (id: string): Promise<IRecipe | null> => {
     try {
         const res = await axios.get(`http://localhost:3000/api/${id}`, {
             headers: { 'Cache-control': 'no-cache' }
@@ -47,6 +47,19 @@ export const getRecipeByName = async (id: string): Promise<IRecipe | null> => {
         return null;
     }
 };
+
+// // GET recipe by ID
+// export const getRecipeByQuery = async (query: string): Promise<IRecipe | null> => {
+//     try {
+//         const res = await axios.get(`http://localhost:3000/api/search/${query}`, {
+//             headers: { 'Cache-control': 'no-cache' }
+//         });
+//         return res.data.recipe;
+//     } catch (error) {
+//         console.error(error);
+//         return null;
+//     }
+// };
 
 // DELETE recipe by ID
 export const deleteRecipeById = async (id: string): Promise<IRecipe | null> => {
