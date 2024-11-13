@@ -1,6 +1,7 @@
 import { Document } from "mongoose";
 
 export const  enum RecipeCategory {
+    All="All",
     Appetizer = "Appetizer",    // מנה ראשונה
     MainCourse = "Main Course", //מנה עיקרית
     Dessert = "Dessert",        //קינוח
@@ -11,7 +12,7 @@ export const  enum RecipeCategory {
 
 export  interface IRecipe extends Document {
     name: string;              
-    category: RecipeCategory;     
+    category: RecipeCategory ;     
     image: string;                
     instructions: string;         
     ingredients: string[];

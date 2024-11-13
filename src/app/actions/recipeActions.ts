@@ -1,33 +1,15 @@
-import { Document } from "mongoose";
 import axios from "axios";
+import { IRecipe } from "../types/recipe";
 
-// Enum for Recipe Categories
-enum RecipeCategory {
-    Appetizer = "Appetizer",    // מנה ראשונה
-    MainCourse = "Main Course", // מנה עיקרית
-    Dessert = "Dessert",        // קינוח
-    Beverage = "Beverage",      // שתייה
-    Snack = "Snack",            // חטיף
-    Salad = "Salad",            // סלט
-}
-
-// Recipe Interface
-export default interface IRecipe extends Document {
-    name: string;
-    category: RecipeCategory;
-    image: string;
-    instructions: string;
-    ingredients: string[];
-    like: boolean;
-}
 
 // GET all recipes
-export const getRecipes = async (): Promise<IRecipe[] | []> => {
+export const getRecipes = async (): Promise<IRecipe[] | []> => {    
     try {
         const res = await axios.get('http://localhost:3000/api/get', {
             headers: { 'Cache-control': 'no-cache' }
         });
         console.log("res", res);
+        
         return res.data.recipes;
     } catch (error) {
         console.error(error);
