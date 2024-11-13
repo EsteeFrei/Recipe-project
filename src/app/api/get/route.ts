@@ -13,7 +13,7 @@ export async function GET(req: NextRequest) {
         if (!recipes || recipes.length === 0) {
             return NextResponse.json({ status: 404, message: "No recipes found" }, { status: 404 });
         }
-
+         
         return NextResponse.json({ status: 200, message: "ok", recipes: recipes });
     }
     catch (err) {

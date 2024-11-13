@@ -1,22 +1,22 @@
 'use client'
 import React from 'react'
 import { IRecipe } from '../types/recipe';
-import Image from 'next/image'; 
+import Image from 'next/image';
 
-type RecipeCardData = Pick<IRecipe, 'name' | 'category' | 'image' | 'instructions' | 'ingredients'>;
+type RecipeCardData = Pick<IRecipe, 'name' | 'category' | 'image' | 'instructions' | 'ingredients' >;
 
 interface RecipeCardProps {
     recipe: RecipeCardData;
 }
 
-const Card :React.FC<RecipeCardProps>= ({recipe}) => {
-  return (
-    <div className="border rounded-lg overflow-hidden shadow-md">
-            <Image 
-                src={recipe.image} 
-                alt={recipe.name} 
-                width={300}  
-                height={200} 
+const Card: React.FC<RecipeCardProps> = ({ recipe }) => {
+    return (
+        <div className="border rounded-lg overflow-hidden shadow-md">
+            <Image
+                src={recipe.image}
+                alt={recipe.name}
+                width={300}
+                height={200}
                 className="w-full h-48 object-cover"
             />
             <div className="p-4">
@@ -30,7 +30,7 @@ const Card :React.FC<RecipeCardProps>= ({recipe}) => {
                 </ul>
             </div>
         </div>
-  )
+    )
 }
 
 export default Card

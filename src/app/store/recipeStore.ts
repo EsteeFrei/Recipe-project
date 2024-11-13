@@ -18,14 +18,21 @@ export const useRecipeStore = create<IRecipeStore>((set) => ({
     currentRecipe: null,
     filteredRecipe: [],
     loadRecipes: async () => {
-        const fetchRecipes:IRecipe[]|[] = await getRecipes();
-        set({ 
+        const fetchRecipes: IRecipe[] | [] = await getRecipes();
+        console.log("store", fetchRecipes);
+
+        set({
             recipes: fetchRecipes,
-            filteredRecipe:fetchRecipes
-         });
+            filteredRecipe: fetchRecipes
+        });
+        console.log("Updated state:", {
+            recipes: fetchRecipes,
+            filteredRecipe: fetchRecipes
+        });
+
     },
-    setFilteredRecipe: (recipes: IRecipe[]) => {
-        set({filteredRecipe: recipes})
+    setFilteredRecipe: (myrecipes: IRecipe[]) => {
+        set({ filteredRecipe: myrecipes })
     },
     addRecipe: (newRecipe: IRecipe) =>
         set((state) => ({

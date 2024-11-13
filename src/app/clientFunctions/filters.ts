@@ -6,7 +6,7 @@ const filterByFn = (items: IRecipe[], filter: (item: IRecipe) => boolean): IReci
 }
 
 export const filterByLikes = (items: IRecipe[]): IRecipe[] => 
-    filterByFn(items, (item) => item.like);
+    filterByFn(items, (item) => item.like===true);
   
   export const filterByCategory = (items: IRecipe[], category: string): IRecipe[] =>
     filterByFn(items, (item) => item.category === category);
