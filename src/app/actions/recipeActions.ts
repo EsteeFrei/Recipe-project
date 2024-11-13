@@ -90,3 +90,19 @@ export const createRecipe = async (recipe: Partial<IRecipe>): Promise<IRecipe | 
         return null;
     }
 };
+
+// UPDATE recipe 'like' status by ID
+export const updateRecipeLike = async (id: string, like: boolean): Promise<IRecipe | null> => {
+    try {
+        const res = await axios.put(`http://localhost:3000/api/putLike/${id}`, { like }, {
+            headers: { 'Cache-control': 'no-cache' }
+        });
+        
+        console.log("Updated recipe like status:", res.data.recipe);
+        
+        return res.data.recipe;
+    } catch (error) {
+        console.error("Error updating recipe like status:", error);
+        return null;
+    }
+};
