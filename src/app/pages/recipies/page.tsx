@@ -15,13 +15,14 @@ const Page: React.FC = () => {
     //const [recipes, setRecipes] = useState<IRecipe[] | []>([])
     const recipes = useRecipeStore((state) => state.recipes)
     const setFilteredRecipe = useRecipeStore((state) => state.setFilteredRecipe)
-    const filteredRecipe = useRecipeStore((state) => state.filteredRecipe)
+    const setRecipes = useRecipeStore((state) => state.setRecipes)
     // const loadRecipes = useRecipeStore((state) => state.loadRecipes)
 
     const getrecipes = async () => {
         try {
             const firstRecipes: IRecipe[] = await getRecipes();
             setFilteredRecipe(firstRecipes || []);
+            setRecipes(firstRecipes||[]);
             console.log("page", recipes);
 
         } catch (err) {

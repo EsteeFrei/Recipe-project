@@ -6,7 +6,7 @@ interface IRecipeStore {
     recipes: IRecipe[];
     filteredRecipe: IRecipe[];
     currentRecipe: IRecipe | null;
-    loadRecipes: () => void;
+    setRecipes: (recipes: IRecipe[]) => void;
     setFilteredRecipe: (recipes: IRecipe[]) => void;
     addRecipe: (newRecipe: IRecipe) => void;
     deleteRecipe: (id: string) => void;
@@ -17,19 +17,8 @@ export const useRecipeStore = create<IRecipeStore>((set) => ({
     recipes: [],//get
     currentRecipe: null,
     filteredRecipe: [],
-    loadRecipes: async () => {
-        const fetchRecipes: IRecipe[] | [] = await getRecipes();
-        console.log("store", fetchRecipes);
-
-        set({
-            recipes: fetchRecipes,
-            filteredRecipe: fetchRecipes
-        });
-        console.log("Updated state:", {
-            recipes: fetchRecipes,
-            filteredRecipe: fetchRecipes
-        });
-
+    setRecipes: (myrecipes: IRecipe[]) => {
+        set({ recipes: myrecipes })
     },
     setFilteredRecipe: (myrecipes: IRecipe[]) => {
         set({ filteredRecipe: myrecipes })
