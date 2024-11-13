@@ -8,8 +8,8 @@ interface IRecipeStore {
     deleteRecipe: (id:string) => void;
 }
 
-export const useReciprStore = create<IRecipeStore>((set) => ({
-    recipes: [],
+export const useRecipeStore = create<IRecipeStore>((set) => ({
+    recipes: [],//get
     currentRecipe: null,
     addRecipe: (newRecipe: IRecipe) => 
         set((state) => ({
