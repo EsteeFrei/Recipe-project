@@ -29,7 +29,8 @@ export const useRecipeStore = create<IRecipeStore>((set) => ({
         })),
     deleteRecipe: (id: string) =>
         set((state) => ({
-            recipes: state.recipes.filter(item => item._id !== id) // מחזירים את המערך לאחר הסינון
+            recipes: state.recipes.filter(item => item._id != id), // מחזירים את המערך לאחר הסינון
+            filteredRecipe:state.filteredRecipe.filter(item => item._id != id)
         }))
 
 
