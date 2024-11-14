@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import { IRecipe } from "../types/recipe";
-import { getRecipes } from "../actions/recipeActions";
 
 interface IRecipeStore {
     recipes: IRecipe[];

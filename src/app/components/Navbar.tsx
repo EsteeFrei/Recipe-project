@@ -11,19 +11,30 @@ const Navbar: React.FC = () => {
     const [activeTab, setActiveTab] = useState<string>('');
 
     const recipes = useRecipeStore((state) => state.recipes)
+    const filteredRecipe = useRecipeStore((state) => state.filteredRecipe)
     const setFilteredRecipe = useRecipeStore((state) => state.setFilteredRecipe)
 
 
     const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setCategory(e.target.value as RecipeCategory);
-        const temp = filterByCategory(recipes, category)
+        const newCategory = e.target.value as RecipeCategory
+        setCategory(newCategory);
+        console.log("category in navBar", category);
+        console.log("newCategory in navBar", newCategory);
+
+        const temp = filterByCategory(recipes, newCategory)
         setFilteredRecipe(temp)
     };
 
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchQuery(e.target.value);
-        const temp = filterByQuery(recipes, searchQuery)
-        setFilteredRecipe(temp)
+        const query = e.target.value;
+        setSearchQuery(query);
+
+        //ביצוע כל הסינוים על המערך המקורי
+        let filteredTmp= filterByCategory(recipes, category)
+        if (activeTab == "likes")
+             filteredTmp = filterByLikes(filteredTmp);
+        const filteredByQuery = filterByQuery(filteredTmp, query)
+        setFilteredRecipe(filteredByQuery)
     };
 
     const handleAddRecipe = () => {
