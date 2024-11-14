@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import { RecipeCategory } from '@/app/types/recipe';
 import { useRecipeStore } from '../store/recipeStore';
-import { filterByLikes } from '../clientFunctions/filters';
+import { filterByCategory, filterByLikes, filterByQuery } from '../clientFunctions/filters';
 
 const Navbar: React.FC = () => {
 
@@ -11,15 +11,30 @@ const Navbar: React.FC = () => {
     const [activeTab, setActiveTab] = useState<string>('');
 
     const recipes = useRecipeStore((state) => state.recipes)
+    const filteredRecipe = useRecipeStore((state) => state.filteredRecipe)
     const setFilteredRecipe = useRecipeStore((state) => state.setFilteredRecipe)
 
 
     const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setCategory(e.target.value as RecipeCategory);
+        const newCategory = e.target.value as RecipeCategory
+        setCategory(newCategory);
+        console.log("category in navBar", category);
+        console.log("newCategory in navBar", newCategory);
+
+        const temp = filterByCategory(recipes, newCategory)
+        setFilteredRecipe(temp)
     };
 
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchQuery(e.target.value);
+        const query = e.target.value;
+        setSearchQuery(query);
+
+        //ביצוע כל הסינוים על המערך המקורי
+        let filteredTmp= filterByCategory(recipes, category)
+        if (activeTab == "likes")
+             filteredTmp = filterByLikes(filteredTmp);
+        const filteredByQuery = filterByQuery(filteredTmp, query)
+        setFilteredRecipe(filteredByQuery)
     };
 
     const handleAddRecipe = () => {
@@ -30,16 +45,12 @@ const Navbar: React.FC = () => {
     const handleTabClick = (tab: string) => {
         if (tab === activeTab) {
             console.log("the same");
-
             return;
         }
         else {
             setActiveTab(tab);
             if (tab === "likes") {
-                console.log("recipies in like",recipes);
-                const temp=filterByLikes(recipes)
-                console.log("temp",temp);
-                
+                const temp = filterByLikes(recipes)
                 setFilteredRecipe(temp)
             }
             else {
@@ -98,7 +109,7 @@ const Navbar: React.FC = () => {
                 </button>
                 <button
                     onClick={() => handleTabClick('likes')}
-                    className={`py-2 px-4 text-lg font-medium ${activeTab === 'favorites' ? 'border-b-2 border-blue-600' : ''}`}
+                    className={`py-2 px-4 text-lg font-medium ${activeTab === 'likes' ? 'border-b-2 border-blue-600' : ''}`}
                 >
                     מועדפים
                 </button>
