@@ -16,6 +16,7 @@ const Page: React.FC = () => {
     const recipes = useRecipeStore((state) => state.recipes)
     const setFilteredRecipe = useRecipeStore((state) => state.setFilteredRecipe)
     const setRecipes = useRecipeStore((state) => state.setRecipes)
+    const filteredRecipe = useRecipeStore((state) => state.filteredRecipe)
     // const loadRecipes = useRecipeStore((state) => state.loadRecipes)
 
     const getrecipes = async () => {
@@ -30,7 +31,7 @@ const Page: React.FC = () => {
         }
     };
 
-    useEffect(() => {
+    useEffect(() => {        
         getrecipes();
     }, []);
 

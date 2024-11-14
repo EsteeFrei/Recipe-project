@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import { RecipeCategory } from '@/app/types/recipe';
 import { useRecipeStore } from '../store/recipeStore';
-import { filterByLikes } from '../clientFunctions/filters';
+import { filterByCategory, filterByLikes, filterByQuery } from '../clientFunctions/filters';
 
 const Navbar: React.FC = () => {
 
@@ -16,10 +16,14 @@ const Navbar: React.FC = () => {
 
     const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setCategory(e.target.value as RecipeCategory);
+        const temp = filterByCategory(recipes, category)
+        setFilteredRecipe(temp)
     };
 
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchQuery(e.target.value);
+        const temp = filterByQuery(recipes, searchQuery)
+        setFilteredRecipe(temp)
     };
 
     const handleAddRecipe = () => {
@@ -30,16 +34,12 @@ const Navbar: React.FC = () => {
     const handleTabClick = (tab: string) => {
         if (tab === activeTab) {
             console.log("the same");
-
             return;
         }
         else {
             setActiveTab(tab);
             if (tab === "likes") {
-                console.log("like");
-                const temp=filterByLikes(recipes)
-                console.log("temp",temp);
-                
+                const temp = filterByLikes(recipes)
                 setFilteredRecipe(temp)
             }
             else {
@@ -98,7 +98,7 @@ const Navbar: React.FC = () => {
                 </button>
                 <button
                     onClick={() => handleTabClick('likes')}
-                    className={`py-2 px-4 text-lg font-medium ${activeTab === 'favorites' ? 'border-b-2 border-blue-600' : ''}`}
+                    className={`py-2 px-4 text-lg font-medium ${activeTab === 'likes' ? 'border-b-2 border-blue-600' : ''}`}
                 >
                     מועדפים
                 </button>

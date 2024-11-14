@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { IRecipe } from '../types/recipe';
 import Image from 'next/image';
 import { updateRecipeLike } from '../actions/recipeActions';
@@ -13,6 +13,10 @@ interface RecipeCardProps {
 
 const Card: React.FC<RecipeCardProps> = ({ recipe }) => {
     const [isLiked, setIsLiked] = useState(recipe.like);
+
+    useEffect(() => {
+        setIsLiked(recipe.like);
+    }, [recipe.like]);
 
     const handleLikeToggle = () => {
         const newLikeStatus = !isLiked;
@@ -32,7 +36,6 @@ const Card: React.FC<RecipeCardProps> = ({ recipe }) => {
             <div className="p-4">
                 <h3 className="text-xl font-semibold">{recipe.name}</h3>
                 <p className="text-gray-500">{recipe.category}</p>
-                <p className="mt-2">{recipe.instructions.slice(0, 100)}...</p>
                 <ul className="mt-2">
                     {recipe.ingredients.map((ingredient, index) => (
                         <li key={index} className="text-sm text-gray-700">- {ingredient}</li>
