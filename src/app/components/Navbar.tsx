@@ -36,7 +36,7 @@ const Navbar: React.FC = () => {
         else {
             setActiveTab(tab);
             if (tab === "likes") {
-                console.log("like");
+                console.log("recipies in like",recipes);
                 const temp=filterByLikes(recipes)
                 console.log("temp",temp);
                 

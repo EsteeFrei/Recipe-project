@@ -12,18 +12,19 @@ import React, {
 
 const Page: React.FC = () => {
 
-    //const [recipes, setRecipes] = useState<IRecipe[] | []>([])
+   
     const recipes = useRecipeStore((state) => state.recipes)
+    const filteredRecipe = useRecipeStore((state) => state.filteredRecipe)
     const setFilteredRecipe = useRecipeStore((state) => state.setFilteredRecipe)
     const setRecipes = useRecipeStore((state) => state.setRecipes)
-    // const loadRecipes = useRecipeStore((state) => state.loadRecipes)
 
-    const getrecipes = async () => {
+    const getRecipesInPage = async () => {
         try {
             const firstRecipes: IRecipe[] = await getRecipes();
             setFilteredRecipe(firstRecipes || []);
             setRecipes(firstRecipes||[]);
-            console.log("page", recipes);
+            console.log("recipes in page from store", recipes);
+            console.log("recipes in page", recipes);
 
         } catch (err) {
             console.error(err);
@@ -31,7 +32,7 @@ const Page: React.FC = () => {
     };
 
     useEffect(() => {
-        getrecipes();
+        getRecipesInPage();
     }, []);
 
     // useEffect(() => {
