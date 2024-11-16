@@ -62,7 +62,7 @@ const Navbar: React.FC = () => {
 
     return (
 
-        <>
+        <div>
             <div className="flex items-center justify-between space-x-4">
                 <div className="flex items-center border border-gray-300 rounded-full p-2 w-full">
                     <span className="pl-2 text-gray-500">
@@ -115,7 +115,7 @@ const Navbar: React.FC = () => {
                 </button>
 
             </div>
-        </>
+        </div>
 
 
     )
