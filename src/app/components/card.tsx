@@ -2,10 +2,9 @@
 import React, { useEffect, useState } from 'react'
 import { IRecipe } from '../types/recipe';
 import Image from 'next/image';
-import { updateRecipeLike } from '../actions/recipeActions';
 import Modal from './Modal';
 import { useRecipeStore } from '../store/recipeStore';
-import { deleteRecipeById } from '../actions/recipeActions';
+import { deleteRecipeById, updateRecipeLike } from '../actions/recipeActions';
 
 type RecipeCardData = Pick<IRecipe, '_id' | 'name' | 'category' | 'image' | 'instructions' | 'ingredients' | 'like'>;
 
@@ -18,6 +17,8 @@ const Card: React.FC<RecipeCardProps> = ({ recipe }) => {
     const [isLiked, setIsLiked] = useState(recipe.like);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+    const updateLike = useRecipeStore((state)=>state.updateLike)
+
     useEffect(() => {
         setIsLiked(recipe.like);
     }, [recipe.like]);
@@ -26,10 +27,10 @@ const Card: React.FC<RecipeCardProps> = ({ recipe }) => {
         const newLikeStatus = !isLiked;
         setIsLiked(newLikeStatus);
         updateRecipeLike(String(recipe._id), newLikeStatus);
+        updateLike(String(recipe._id), newLikeStatus)
     };
 
     const deleteRecipe = useRecipeStore((state) => state.deleteRecipe)
-    const filteredRecipe = useRecipeStore((state) => state.filteredRecipe)
 
 
     const openModal = () => {
@@ -51,13 +52,13 @@ const Card: React.FC<RecipeCardProps> = ({ recipe }) => {
 
     return (
         <div>
-            <div className="border rounded-lg overflow-hidden shadow-md cursor-pointer" onClick={openModal}>
+            <div className="border rounded-lg overflow-hidden shadow-md cursor-pointer max-w-xs" onClick={openModal}>
                 <Image
                     src={recipe.image}
                     alt={recipe.name}
-                    width={300}
-                    height={200}
-                    className="w-full h-48 object-cover"
+                    width={150}
+                    height={300}
+                    className="w-full h-60 object-cover"
                 />
                 <div className="p-4">
                     <div className="flex items-center justify-between">
@@ -75,11 +76,6 @@ const Card: React.FC<RecipeCardProps> = ({ recipe }) => {
                     </div>
 
                     <p className="text-gray-500">{recipe.category}</p>
-                    {/* <ul className="mt-2">
-                        {recipe.ingredients.map((ingredient, index) => (
-                            <li key={index} className="text-sm text-gray-700">- {ingredient}</li>
-                        ))}
-                    </ul> */}
                 </div>
             </div>
             {isModalOpen && <Modal recipe={recipe} onClose={closeModal} onDelete={deleterecipe} />}

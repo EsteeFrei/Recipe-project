@@ -30,9 +30,9 @@ const Navbar: React.FC = () => {
         setSearchQuery(query);
 
         //ביצוע כל הסינוים על המערך המקורי
-        let filteredTmp= filterByCategory(recipes, category)
+        let filteredTmp = filterByCategory(recipes, category)
         if (activeTab == "likes")
-             filteredTmp = filterByLikes(filteredTmp);
+            filteredTmp = filterByLikes(filteredTmp);
         const filteredByQuery = filterByQuery(filteredTmp, query)
         setFilteredRecipe(filteredByQuery)
     };
@@ -62,7 +62,14 @@ const Navbar: React.FC = () => {
 
     return (
 
-        <>
+        <div className="container mx-auto px-4">
+            <div className="mb-6">
+                <h2 className="text-3xl font-extrabold mb-2 text-gray-800 tracking-tight">
+                    המתכונים שלנו
+                </h2>
+                <p className="text-gray-500 text-lg">מצא את המתכון המושלם עבורך</p>
+            </div>
+
             <div className="flex items-center justify-between space-x-4">
                 <div className="flex items-center border border-gray-300 rounded-full p-2 w-full">
                     <span className="pl-2 text-gray-500">
@@ -115,7 +122,7 @@ const Navbar: React.FC = () => {
                 </button>
 
             </div>
-        </>
+        </div>
 
 
     )
